@@ -259,7 +259,6 @@ extension Color {
 	
 		- Version :
 		1.0
-	
 	*/
 	init( red : Int = 255,
 		  green : Int = 255,
@@ -273,6 +272,34 @@ extension Color {
 					  green : Double( 255 / green ),
 					  blue : Double( 255 / blue ),
 					  opacity: Double( 255 / alpha )
+		)
+	}
+	
+	// MARK: - HEX Init
+	
+	
+	/// Gives a SwiftUI.Color object using a Hex Color code
+	///
+	/// - Parameters:
+	///    - hex: The hex color code string to parse into a Color
+	///
+	/// - Version: Beta 0.1
+	init( hex: String ) {
+		
+		let scanner = Scanner(string: hex)
+		scanner.currentIndex = .init(utf160Offset : 0, in: hex)
+		var rgbValue: Uint64 = 0
+		scanner.scanHexInt64(&rgbValue)
+		
+		let red = ( rgbValue & 0xff0000 ) >> 16
+		let green = ( rgbValue & 0xff00 ) >> 8
+		let blue = ( rgbValue & 0xff )
+		
+		self = Color(
+			red: Double( red ) / 0xff,
+			green: Double( green ) / 0xff,
+			blue: Double( blue ) / 0xff,
+			alpha: 1
 		)
 	}
 }
