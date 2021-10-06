@@ -48,15 +48,15 @@ extension Color {
 	// MARK: - Random Color Attribute
 	
 	/**
-	Gets a random sRGB Color
-	
-	- Returns :
-	A SwiftUI.Color Object with a random sRGB Color value.
-
-	- Version :
-	1.0
-	
-	*/
+	 Gets a random sRGB Color
+	 
+	 - Returns :
+	 A SwiftUI.Color Object with a random sRGB Color value.
+	 
+	 - Version :
+	 1.0
+	 
+	 */
 	static var RJRandom : Color {
 		
 		let red = Double.random( in : 0...1 )
@@ -72,7 +72,7 @@ extension Color {
 	var RJColorData : Dictionary< ValueTypes, Double > {
 		
 		return [
-		
+			
 			// Swift Data Values
 			.swiftRed : components.red,
 			.swiftGreen : components.green,
@@ -88,25 +88,25 @@ extension Color {
 	}
 	
 	/**
-		Call to get a specific Color Value
-	
-		- Parameter valueType : Takes a ValueType to return the desired value
-	
-		- Returns : Returns a Double equating to the desired color value
-	
-		- Version : 1.0
-	*/
+	 Call to get a specific Color Value
+	 
+	 - Parameter valueType : Takes a ValueType to return the desired value
+	 
+	 - Returns : Returns a Double equating to the desired color value
+	 
+	 - Version : 1.0
+	 */
 	func RJgetColorValue( _ valueType : ValueTypes ) -> Double {
 		
 		switch valueType {
-			
-			// Swift Data Values
+				
+				// Swift Data Values
 			case .swiftRed : return components.red
 			case .swiftGreen : return components.green
 			case .swiftBlue : return components.blue
 			case .swiftAlpha : return components.alpha
 				
-			// Standard RGBA Values
+				// Standard RGBA Values
 			case .standardRed : return Double( 255 * components.red )
 			case .standardGreen : return Double( 255 * components.green )
 			case .standardBlue : return Double( 255 * components.blue )
@@ -138,40 +138,40 @@ extension Color {
 		
 		return "\( components.red )||\( components.green )||\( components.blue )||\( components.alpha )"
 	}
-
+	
 	/**
-		Converts a given String to a SwiftUI Color Object
-	
-		- parameter colorString : The string to be converted. Can either be a color name, or in the format redValue||greenValue||blueValue||alphaValue
-	
-		- Throws :
-		An Error of Type InitColorFromStringError
-	
-		- Version :
-		1.0
-	
-		- String Casing is irrelevant
-	
-		- The throw for this init can mostly be ignored using 'try?'. The throws can be treated as more of a debugging feature
-	
-		- Can take Strings in two forms
-		
-			- as a Color Name
-				- By default this is limited to the default Color values
-				- However, colors can be added in as Cases
-	
-			- As a converted String
-				- These do have to be in a specified Format
-				- The Format is as Follows :
-				- "redValue||greenValue||blueValue||alphaValue"
-	
-	*/
+	 Converts a given String to a SwiftUI Color Object
+	 
+	 - parameter colorString : The string to be converted. Can either be a color name, or in the format redValue||greenValue||blueValue||alphaValue
+	 
+	 - Throws :
+	 An Error of Type InitColorFromStringError
+	 
+	 - Version :
+	 1.0
+	 
+	 - String Casing is irrelevant
+	 
+	 - The throw for this init can mostly be ignored using 'try?'. The throws can be treated as more of a debugging feature
+	 
+	 - Can take Strings in two forms
+	 
+	 - as a Color Name
+	 - By default this is limited to the default Color values
+	 - However, colors can be added in as Cases
+	 
+	 - As a converted String
+	 - These do have to be in a specified Format
+	 - The Format is as Follows :
+	 - "redValue||greenValue||blueValue||alphaValue"
+	 
+	 */
 	
 	init( fromString colorString : String ) throws {
 		
 		// Lowercases the String and Switches for the Possible Outcome
 		switch colorString.lowercased() {
-			
+				
 			case "red" :
 				self = .red
 				
@@ -196,13 +196,13 @@ extension Color {
 			case "gray" :
 				self = .gray
 				
-//			Add new Named Colors Below Here
-//
-//			case "nameOfColor" :
-//			self = Color( someColorInit )
-			
-			
-			// Handles non named colors
+				//			Add new Named Colors Below Here
+				//
+				//			case "nameOfColor" :
+				//			self = Color( someColorInit )
+				
+				
+				// Handles non named colors
 			default : do {
 				
 				// Converts the String to a List of Strings
@@ -250,16 +250,16 @@ extension Color {
 	
 	
 	/**
-		Gives a SwiftUI.Color object using the Standard 255 color values
-	
-		- Parameter red : the red value, takes an Int from 0 - 255
-		- Parameter green : the green value, takes an Int from 0 - 255
-		- Parameter blue : the blue value, takes an Int from 0 - 255
-		- Parameter alpha : the alpha / opacity value, takes an Int from 0 - 255
-	
-		- Version :
-		1.0
-	*/
+	 Gives a SwiftUI.Color object using the Standard 255 color values
+	 
+	 - Parameter red : the red value, takes an Int from 0 - 255
+	 - Parameter green : the green value, takes an Int from 0 - 255
+	 - Parameter blue : the blue value, takes an Int from 0 - 255
+	 - Parameter alpha : the alpha / opacity value, takes an Int from 0 - 255
+	 
+	 - Version :
+	 1.0
+	 */
 	init( red : Int = 255,
 		  green : Int = 255,
 		  blue : Int = 255,
@@ -287,19 +287,19 @@ extension Color {
 	init( hex: String ) {
 		
 		let scanner = Scanner(string: hex)
-		scanner.currentIndex = .init(utf160Offset : 0, in: hex)
-		var rgbValue: Uint64 = 0
+		scanner.currentIndex = .init(utf16Offset : 0, in: hex)
+		var rgbValue: UInt64 = 0
 		scanner.scanHexInt64(&rgbValue)
 		
 		let red = ( rgbValue & 0xff0000 ) >> 16
 		let green = ( rgbValue & 0xff00 ) >> 8
 		let blue = ( rgbValue & 0xff )
 		
-		self = Color(
-			red: Double( red ) / 0xff,
-			green: Double( green ) / 0xff,
-			blue: Double( blue ) / 0xff,
-			alpha: 1
+		self = Color( .sRGB,
+					  red: Double( red ) / 0xff,
+					  green: Double( green ) / 0xff,
+					  blue: Double( blue ) / 0xff,
+					  opacity: 1
 		)
 	}
 }
