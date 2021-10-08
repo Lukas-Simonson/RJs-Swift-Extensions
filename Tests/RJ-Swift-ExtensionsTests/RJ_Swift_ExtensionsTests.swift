@@ -1,4 +1,5 @@
 import XCTest
+import SwiftUI
 @testable import RJ_Swift_Extensions
 
 final class RJ_Swift_ExtensionsTests: XCTestCase {
